@@ -1,0 +1,4 @@
+[core]
+    remote = simplesentimentanalysis
+['remote "simplesentimentanalysis"']
+    url = https://github.com/Savara-Kalyan/SimpleSentimentAnalysis.git

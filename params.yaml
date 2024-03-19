@@ -1,0 +1,22 @@
+
+data:
+  csv_file_path : ./data/IMDB-Dataset.csv
+  test_set_ratio : 0.3
+  random_state : 1234
+  train_csv_file_path : ./artifacts/train.csv
+  test_csv_file_path : ./artifacts/test.csv
+
+features:
+  vectorizer: count
+  train_features_path: ./artifacts/train_features.joblib
+  test_features_path: ./artifacts/test_features.joblib
+
+train: 
+  penalty: l2
+  C: 1.0
+  solver: lbfgs
+  model_path: ./models/model.joblib
+
+test: 
+  metric: accuracy
+  results_save_path: ./results/results.yaml

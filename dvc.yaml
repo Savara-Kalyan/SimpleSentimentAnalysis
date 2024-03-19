@@ -1,0 +1,56 @@
+
+
+stages:
+  prepare_data:
+    cmd: python ./prepare_data.py
+    deps:
+      - ./prepare_data.py
+      - ./data/IMDB-Dataset.csv
+    params:
+      - ./params.yaml:
+        - data
+    outs:
+      - ./artifacts/train.csv
+      - ./artifacts/test.csv
+
+
+  make_features:
+    cmd: python ./make_features.py
+    deps:
+      - ./make_features.py
+      - ./artifacts/train.csv
+      - ./artifacts/test.csv
+    params:
+      - ./params.yaml:
+        - features
+    outs:
+      - ./artifacts/train_features.joblib
+      - ./artifacts/test_features.joblib
+
+  
+  train:
+    cmd: python ./train.py
+    deps:
+      - ./train.py
+      - ./artifacts/train_features.joblib
+      - ./artifacts/train.csv
+    params:
+      - ./params.yaml:
+        - train
+    outs:
+      - ./models/model.joblib
+
+
+  test:
+    cmd: python ./test.py
+    deps:
+      - ./test.py
+      - ./models/model.joblib
+      - ./artifacts/test_features.joblib
+      - ./artifacts/test.csv
+    params:
+      - ./params.yaml:
+        - test
+    outs:
+      - ./results/results.yaml
+
